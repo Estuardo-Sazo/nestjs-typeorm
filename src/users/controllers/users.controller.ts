@@ -10,27 +10,36 @@ import {
 } from '@nestjs/common';
 
 import { UsersService } from '../services/users.service';
+import { CustomersService } from '../services/customers.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    private usersService: UsersService,
+    private customersService: CustomersService,
+  ) {}
 
   @Get()
   findAll() {
     return this.usersService.findAll();
   }
 
+  /* @Get('tasks')
+  getTasks() {
+    return this.usersService.getTasks();
+  } */
+
   @Get(':id')
   get(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.findOne(id);
   }
 
-  @Get(':id/orders')
+  /*  @Get(':id/orders')
   getOrders(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getOrderByUser(id);
   }
-
+ */
   @Post()
   create(@Body() payload: CreateUserDto) {
     return this.usersService.create(payload);

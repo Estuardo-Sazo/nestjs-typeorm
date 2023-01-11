@@ -1,0 +1,26 @@
+docker-compose up -d postgres
+docker-compose up -d pgadmin
+docker-compose up -d mysql
+docker-compose ps
+docker-compose down
+
+Comandos NEST:
+
+generar Servicio
+nest g s users/services/orders --flat
+
+Generar Controlador
+nest g co users/controllers/orders --flat
+
+
+
+------- Migrations
+
+Comando para generar la migration:
+npm run migration:generate
+
+Ejecutar migracion:
+npm run migrations:run
+
+#Eliminar DB para nuevas migracionefa-spin
+npm run schema:drop
