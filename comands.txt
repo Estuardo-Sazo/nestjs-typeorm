@@ -24,3 +24,14 @@ npm run migrations:run
 
 #Eliminar DB para nuevas migracionefa-spin
 npm run schema:drop
+
+-- Crear Modulo
+nest g mo auth
+
+
+---------Crear Guards
+nest g gu auth/guards/apiKey --flat
+
+
+--- Crear Decoradores
+nest g d auth/decorators/nombre --flat
