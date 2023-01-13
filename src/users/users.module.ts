@@ -30,6 +30,6 @@ import { LineOrderService } from './services/line-order.service';
     LineOrderController,
   ],
   providers: [CustomersService, UsersService, OrdersService, LineOrderService],
-  exports: [LineOrderService],
+  exports: [LineOrderService, UsersService],
 })
 export class UsersModule {}
