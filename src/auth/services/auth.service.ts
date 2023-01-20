@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
 import { use } from 'passport';
+import { PayloadToken } from '../models/token.model';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +27,13 @@ export class AuthService {
   }
 
   generateJWT(user: User) {
-    const payload = { role: user.role, sub: user.id };
+    const payload: PayloadToken = {
+      role: user.role,
+      sub: user.id,
+    };
+    return {
+      access_token: this.jwtService.sign(payload),
+      user,
+    };
   }
 }
