@@ -23,6 +23,10 @@ import {
 } from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
 
+import { AuthGuard } from '@nestjs/passport';
+import { UseGuards } from '@nestjs/common/decorators';
+
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
@@ -31,9 +35,6 @@ export class ProductsController {
   @Get()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProdutcsDto) {
-    // return {
-    //   message: `products limit=> ${limit} offset=> ${offset} brand=> ${brand}`,
-    // };
     return this.productsService.findAll(params);
   }
 

@@ -3,7 +3,6 @@ import { UsersService } from 'src/users/services/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/users/entities/user.entity';
-import { use } from 'passport';
 import { PayloadToken } from '../models/token.model';
 
 @Injectable()
