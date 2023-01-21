@@ -9,10 +9,8 @@ import {
   Delete,
   HttpStatus,
   HttpCode,
-  Res,
   // ParseIntPipe,
 } from '@nestjs/common';
-import { Response } from 'express';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 import { ParseIntPipe } from '../../common/parse-int.pipe';
@@ -23,15 +21,18 @@ import {
 } from '../dtos/products.dtos';
 import { ProductsService } from './../services/products.service';
 
-import { AuthGuard } from '@nestjs/passport';
 import { UseGuards } from '@nestjs/common/decorators';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
-@UseGuards(AuthGuard('jwt'))
+import { Public } from '../../auth/decorators/public.decorator';
+
+@UseGuards(JwtAuthGuard)
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
+  @Public()
   @Get()
   @ApiOperation({ summary: 'List of products' })
   getProducts(@Query() params: FilterProdutcsDto) {
