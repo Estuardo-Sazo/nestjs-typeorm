@@ -25,8 +25,11 @@ import { UseGuards } from '@nestjs/common/decorators';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 import { Public } from '../../auth/decorators/public.decorator';
+import { Roles } from 'src/auth/decorators/roles.decoratos';
+import { Role } from 'src/auth/models/roles.model';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @ApiTags('products')
 @Controller('products')
 export class ProductsController {
@@ -47,18 +50,12 @@ export class ProductsController {
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   getOne(@Param('productId', ParseIntPipe) productId: number) {
-    // response.status(200).send({
-    //   message: `product ${productId}`,
-    // });
     return this.productsService.findOne(productId);
   }
 
+  @Roles(Role.ADMIN)
   @Post()
   create(@Body() payload: CreateProductDto) {
-    // return {
-    //   message: 'accion de crear',
-    //   payload,
-    // };
     return this.productsService.create(payload);
   }
 
