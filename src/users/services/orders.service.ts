@@ -70,4 +70,13 @@ export class OrdersService {
   async remove(id: number) {
     return await this.orderRepo.delete(id);
   }
+
+  async ordersByCustomer(id) {
+    const order = await this.orderRepo.find({
+      where: { customer: id },
+      relations: ['user', 'customer', 'lines', 'lines.product'],
+    });
+    if (!order) throw new NotFoundException(`Order not found.`);
+    return order;
+  }
 }
